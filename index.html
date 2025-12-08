@@ -44,25 +44,19 @@
 
         <div class="item-menu-tags"> <!-- da hells this lol -->
             <div id="item-menu-cancel" onClick='
-            document.getElementById(`item-menu`).style.zIndex = "30";
-            document.getElementById(`item-menu`).style.zIndex = "30";
-            document.getElementById(`team-menu`).style.zIndex = "50";
             document.getElementById(`team-menu`).style.display = "flex" ;
-            setTimeout(() => { document.getElementById(`item-menu`).style.display = "none";
-            document.getElementById(`item-menu`).style.zIndex = "30" }, 500);
+            document.getElementById(`item-menu`).style.display = "none";
+            document.getElementById(`item-menu`).style.zIndex = "30" 
             document.getElementById("item-menu-cancel").style.display = "none";
                 dexTeamSelect = undefined; updateItemBag(); 
                 updatePreviewTeam()'
                  style="display: none; background: rgb(255, 81, 81); color: white; border: none; ">Cancel</div>
 
             <div id="item-menu-remove" onClick='
-            document.getElementById(`item-menu`).style.zIndex = "30";
-            document.getElementById(`item-menu`).style.zIndex = "30";
-            document.getElementById(`team-menu`).style.zIndex = "50";
             document.getElementById(`team-menu`).style.display = "flex" ;
-            setTimeout(() => { document.getElementById(`item-menu`).style.display = "none";
-            document.getElementById(`item-menu`).style.zIndex = "30" }, 500);
-            document.getElementById("item-menu-rempve").style.display = "none";
+            document.getElementById(`item-menu`).style.display = "none";
+            document.getElementById(`item-menu`).style.zIndex = "30"
+            document.getElementById("item-menu-remove").style.display = "none";
                 if (saved.currentPreviewTeam == saved.preview1) saved.preview1[dexTeamSelect].item = undefined;
                 if (saved.currentPreviewTeam == saved.preview2) saved.preview2[dexTeamSelect].item = undefined;
                 if (saved.currentPreviewTeam == saved.preview3) saved.preview3[dexTeamSelect].item = undefined; 
