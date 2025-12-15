@@ -5478,26 +5478,54 @@ function updateItemShop(){
     const div = document.createElement("div");
 
 
-    div.addEventListener("click", e => { 
+div.addEventListener("click", () => {
 
-        if (item[currency].got>=shop[i].price){
+    document.getElementById("tooltipTop").style.display = "none"
+    document.getElementById("tooltipTitle").innerHTML = "How many will you buy?"
+    document.getElementById("tooltipMid").style.display = "none"
 
-            item[currency].got-=shop[i].price
+    document.getElementById("tooltipBottom").innerHTML = `
+        <span style="display:flex; justify-content:center; width:100%">
+            <div data-amount="1"  style="cursor:pointer; font-size:2rem; width:40%">x1</div>
+            <div data-amount="5"  style="cursor:pointer; font-size:2rem; width:40%">x5</div>
+            <div data-amount="10" style="cursor:pointer; font-size:2rem; width:40%">x10</div>
+        </span>
+    `
 
-            if (shop[i].effect) shop[i].effect()
-            else {item[shop[i].icon].got++}
+    document
+        .querySelectorAll("#tooltipBottom div")
+        .forEach(el => {
+            el.addEventListener("click", () => {
+                buyItem(+el.dataset.amount)
+            })
+        })
+
+    openTooltip()
+})
+
+    function buyItem(amount) {
+        
+        if (item[currency].got>=(shop[i].price*amount)){
+
+            item[currency].got-=shop[i].price*amount
+
+            if (shop[i].effect) {
+            for (let l = 0; l < amount; l++) {
+            shop[i].effect()
+            }
+            }
+            else {item[shop[i].icon].got+=amount}
 
             updateItemShop()
+            closeTooltip()
         } else{
             document.getElementById("tooltipTitle").innerHTML = "Cant afford";
             document.getElementById("tooltipTop").style.display = "none"    
             document.getElementById("tooltipTop").style.display = "none"    
             document.getElementById("tooltipMid").style.display = "none"
             document.getElementById("tooltipBottom").innerHTML = "You dont have enough Bottle Caps to purchase this"
-            openTooltip()
         }
-
-    })
+    }
 
     div.dataset.item = shop[i].icon
 
