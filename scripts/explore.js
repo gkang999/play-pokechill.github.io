@@ -829,7 +829,7 @@ function updateWildPkmn(){
     let respawnTimer = 1000
     if (saved.overrideBattleTimer != defaultPlayerMoveTimer) respawnTimer = 1
 
-    if (afkSeconds>=0) respawnTimer = 0
+    if (afkSeconds>0) respawnTimer = 0 //woomp woomp
 
 
 
