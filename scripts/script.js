@@ -489,7 +489,7 @@ function openTutorial(){
   if (saved.tutorialStep == "intro") document.getElementById("tutorial-text").innerHTML = `Howdy! I have been assigned to show the ropes, but you can disable me in the settings at any time.<br>Let's start by getting new pokemon shall we? Select "Travel" on the top left menu`
   if (saved.tutorialStep == "travel") document.getElementById("tutorial-text").innerHTML = `You can right click/long tap almost everything on the screen for more info! You can also do this within the info itself too. Try going into the first Wild Area to start catching Pokemon`
   if (saved.tutorialStep == "moves") document.getElementById("tutorial-text").innerHTML = `Right click/long tap a pokemon in your team to set their moves, you can also do this while in battle. If you got any held items, you can also assign them here<br>Once you are ready, press Save and Go! at the top of the screen`
-  if (saved.tutorialStep == "battle") document.getElementById("tutorial-text").innerHTML = `Your team will automatically attack in a set pattern, even while you tab out or close the browser! You can right click/long press on moves or pokemon to see their stats aswell`
+  if (saved.tutorialStep == "battle") document.getElementById("tutorial-text").innerHTML = `Your team will automatically attack in a set pattern, even while you tab out or close the browser! You can right click/long press on moves or pokemon to see their stats aswell. Once you have more Pokemon in your team, you will be able to switch them arround in a fight`
   if (saved.tutorialStep == "battleEnd") {document.getElementById("tutorial-text").innerHTML = `You can check a more in-depth explanation about stats and battle mechanics in the Guide menu. For now, I will take a break... Enjoy your stay!`}
   document.getElementById("tutorial").style.display = "flex"
   
@@ -505,7 +505,7 @@ guide.inspecting = {
 
 guide.stats = {
   name: `Battle: Stats`,
-  description: function() { return `Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level<br><br>Stats determine how much damage they deal and receive ( see Battle: Moves). The speed stat determines how fast a Pokemon executes a move<br><br>Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon`}
+  description: function() { return `Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level<br><br>Stats determine how much damage they deal and receive ( see Battle: Moves). The speed stat determines how fast a Pokemon executes a move<br><br>Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon<br><br>Depending on their base stats, a Division will be asigned to them. You might use this Division letter to quickly assess which Pokemon can perform better on the short term`}
 }
 
 guide.abilities = {
