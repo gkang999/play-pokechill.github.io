@@ -2743,6 +2743,10 @@ function exploreCombatPlayer() {
         if (nextMove.split == 'special') {
             if (team[exploreActiveMember].buffs?.satkup1 > 0) totalPower *=1.5
             if (team[exploreActiveMember].buffs?.satkup2 > 0) totalPower *=2
+
+            if (team[exploreActiveMember].buffs?.satkdown1 > 0) totalPower /=1.5
+            if (team[exploreActiveMember].buffs?.satkdown2 > 0) totalPower /=2
+
             if (team[exploreActiveMember].buffs?.poisoned > 0 && !testAbility(`active`, ability.guts.id) ) totalPower /=1.5
 
 
@@ -2750,6 +2754,9 @@ function exploreCombatPlayer() {
 
             if (wildBuffs.sdefup1 > 0) totalPower /=1.5
             if (wildBuffs.sdefup2 > 0) totalPower /=2
+
+            if (wildBuffs.sdefdown1 > 0) totalPower *=1.5
+            if (wildBuffs.sdefdown2 > 0) totalPower *=2         
 
          }
 
@@ -2760,12 +2767,21 @@ function exploreCombatPlayer() {
         if (nextMove.split == 'physical') {
             if (team[exploreActiveMember].buffs?.atkup1 > 0) totalPower *=1.5
             if (team[exploreActiveMember].buffs?.atkup2 > 0) totalPower *=2
+
+            if (team[exploreActiveMember].buffs?.atkdown1 > 0) totalPower /=1.5
+            if (team[exploreActiveMember].buffs?.atkdown2 > 0) totalPower /=2
+
             if (team[exploreActiveMember].buffs?.burn > 0 && !testAbility(`active`, ability.guts.id) ) totalPower /=1.5
 
          if ( testAbility(`active`,  ability.unaware.id ) == false ){
 
             if (wildBuffs.defup1 > 0) totalPower /=1.5
             if (wildBuffs.defup2 > 0) totalPower /=2
+
+            if (wildBuffs.defdown1 > 0) totalPower *=1.5
+            if (wildBuffs.defdown2 > 0) totalPower *=2
+
+
 
          }
 
@@ -3552,17 +3568,35 @@ function exploreCombatWild() {
         if (move[nextMoveWild].split == 'special') {
             if (wildBuffs.satkup1 > 0) totalPower *=1.5
             if (wildBuffs.satkup2 > 0) totalPower *=2
+
+            if (wildBuffs.satkdown1 > 0) totalPower /=1.5
+            if (wildBuffs.satkdown2 > 0) totalPower /=2
+
             if (wildBuffs.poisoned > 0) totalPower /=1.5
+
+
             if (team[exploreActiveMember].sdefup1 > 0) totalPower /=1.5
             if (team[exploreActiveMember].sdefup2 > 0) totalPower /=2
+
+            if (team[exploreActiveMember].sdefdown1 > 0) totalPower *=1.5
+            if (team[exploreActiveMember].sdefdown2 > 0) totalPower *=2      
         }
 
         if (move[nextMoveWild].split == 'physical') {
             if (wildBuffs.atkup1 > 0) totalPower *=1.5
             if (wildBuffs.atkup2 > 0) totalPower *=2
+
+            if (wildBuffs.atkdown1 > 0) totalPower /=1.5
+            if (wildBuffs.atkdown2 > 0) totalPower /=2
+
             if (wildBuffs.burn > 0) totalPower /=1.5
+
+
             if (team[exploreActiveMember].defup1 > 0) totalPower /=1.5
             if (team[exploreActiveMember].defup2 > 0) totalPower /=2
+
+            if (team[exploreActiveMember].defdown1 > 0) totalPower *=1.5
+            if (team[exploreActiveMember].defdown2 > 0) totalPower *=2
         }
 
 
@@ -7323,3 +7357,4 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
+
