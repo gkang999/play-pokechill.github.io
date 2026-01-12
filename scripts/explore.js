@@ -975,7 +975,12 @@ function leaveCombat(){
     item.mysteryEgg.newItem = 0
 
 
-    if (areas[saved.currentArea].encounter && areas[saved.currentArea].unlockRequirement && !areas[saved.currentArea].unlockRequirement() ) saved.autoRefight == false
+    if (areas[saved.currentArea].encounter && areas[saved.currentArea].unlockRequirement && !areas[saved.currentArea].unlockRequirement() ) {
+        afkSeconds = 0
+        saved.autoRefight = false
+    } 
+
+    afkSeconds = 0
 
     saved.currentArea = undefined
 
