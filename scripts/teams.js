@@ -897,7 +897,7 @@ function handleDragEnd(e) {
 
 function handleTouchStart(e) {
     // No iniciar drag si se toca el item holder
-    if (e.target.closest('.team-held-item')) return;
+    // if (e.target.closest('.team-held-item')) return;
     
     touchDragElement = this;
     draggedSlot = this.dataset.slot;
