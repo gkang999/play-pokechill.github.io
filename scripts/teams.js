@@ -896,10 +896,12 @@ function handleDragEnd(e) {
 // ========== FUNCIONES TOUCH (MOBILE) ==========
 
 function handleTouchStart(e) {
-    // No iniciar drag si se toca el item holder
-    // if (e.target.closest('.team-held-item')) return;
+    if (e.target.closest('.team-held-item')) {
+        touchDragElement = e.target.closest('.team-held-item');
+    } else {
+        touchDragElement = this;
+    }
     
-    touchDragElement = this;
     draggedSlot = this.dataset.slot;
     isTouchDragging = false;
     canStartDrag = false;
@@ -958,8 +960,9 @@ function handleTouchMove(e) {
     
     // Mover el ghost
     if (ghostElement) {
-        ghostElement.style.left = touch.clientX - (ghostElement.offsetWidth / 2) + 'px';
-        ghostElement.style.top = touch.clientY - (ghostElement.offsetHeight / 2) + 'px';
+        // if dragging item, don't apply style offset
+        ghostElement.style.left = touch.clientX - (ghostElement.className === 'team-held-item' ? 0 : ghostElement.offsetWidth / 2) + 'px';
+        ghostElement.style.top = touch.clientY - (ghostElement.className === 'team-held-item' ? 0 : ghostElement.offsetHeight / 2) + 'px';
     }
     
     // Detectar sobre qué elemento estamos
@@ -1001,11 +1004,10 @@ function handleTouchEnd(e) {
     
     if (targetElement && targetElement !== touchDragElement) {
         const targetSlot = targetElement.dataset.slot;
-        const targetItemSlot = this.offsetParent.dataset.slot;
+        const isDraggedItem = this.className === 'team-held-item';
 
-        // it's an item swap if targetSlot is undef
-        if (!targetSlot && targetItemSlot) {
-            swapItemSlots(draggedSlot, targetItemSlot);
+        if (isDraggedItem) {
+            swapItemSlots(draggedSlot, targetSlot);
         } else {
             swapTeamSlots(draggedSlot, targetSlot);
         }
