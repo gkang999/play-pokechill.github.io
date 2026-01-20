@@ -771,6 +771,19 @@ function updatePreviewTeam(){
                 document.getElementById(`team-menu`).style.display = "none"
             })
 
+            // Event listeners para touch (Mobile)
+            document.getElementById(`team-${i}-held-item`).addEventListener('touchstart', handleTouchStart, { passive: false });
+            document.getElementById(`team-${i}-held-item`).addEventListener('touchmove', handleTouchMove, { passive: false });
+            document.getElementById(`team-${i}-held-item`).addEventListener('touchend', handleTouchEnd);
+
+            // Event listeners para drag & drop nativo (Desktop)
+            document.getElementById(`team-${i}-held-item`).addEventListener('dragstart', handleDragStart);
+            document.getElementById(`team-${i}-held-item`).addEventListener('dragover', handleDragOver);
+            document.getElementById(`team-${i}-held-item`).addEventListener('drop', handleDrop);
+            document.getElementById(`team-${i}-held-item`).addEventListener('dragend', handleDragEnd);
+            document.getElementById(`team-${i}-held-item`).addEventListener('dragenter', handleDragEnter);
+            document.getElementById(`team-${i}-held-item`).addEventListener('dragleave', handleDragLeave);
+
             //create moves in the team slots
             for (const e in pkmn[currentTeam[i].pkmn].moves) {
                 let moveId = pkmn[currentTeam[i].pkmn].moves[e]
@@ -854,10 +867,16 @@ function handleDrop(e) {
     }
     
     const targetSlot = this.dataset.slot;
+    const targetItemSlot = this.offsetParent.dataset.slot;
     
     // Solo intercambiar si es un slot diferente
     if (draggedSlot !== targetSlot) {
-        swapTeamSlots(draggedSlot, targetSlot);
+        // it's an item swap if targetSlot is undef
+        if (!targetSlot && targetItemSlot) {
+            swapItemSlots(draggedSlot, targetItemSlot);
+        } else {
+            swapTeamSlots(draggedSlot, targetSlot);
+        }
     }
     
     this.classList.remove('drag-over');
@@ -889,7 +908,7 @@ function handleTouchStart(e) {
     touchStartX = touch.clientX;
     touchStartY = touch.clientY;
     
-    // Iniciar timeout de 500ms para activar el drag
+    // Iniciar timeout de 250ms para activar el drag
     touchHoldTimeout = setTimeout(() => {
         canStartDrag = true;
         // Feedback háptico si está disponible
@@ -899,7 +918,7 @@ function handleTouchStart(e) {
         // Feedback visual: escalar un poco el elemento
         touchDragElement.style.transform = 'scale(1.02)';
         touchDragElement.style.transition = 'transform 0.1s';
-    }, 500);
+    }, 250);
 }
 
 function handleTouchMove(e) {
@@ -982,7 +1001,14 @@ function handleTouchEnd(e) {
     
     if (targetElement && targetElement !== touchDragElement) {
         const targetSlot = targetElement.dataset.slot;
-        swapTeamSlots(draggedSlot, targetSlot);
+        const targetItemSlot = this.offsetParent.dataset.slot;
+
+        // it's an item swap if targetSlot is undef
+        if (!targetSlot && targetItemSlot) {
+            swapItemSlots(draggedSlot, targetItemSlot);
+        } else {
+            swapTeamSlots(draggedSlot, targetSlot);
+        }
     }
     
     // Limpiar
@@ -1020,6 +1046,18 @@ function createGhostElement(element, x, y) {
     ghostElement.style.width = element.offsetWidth + 'px';
     
     document.body.appendChild(ghostElement);
+}
+
+function swapItemSlots(slot1, slot2) {
+    const currentTeam = saved.previewTeams[saved.currentPreviewTeam];
+    
+    // Intercambiar los pokémon
+    const temp = currentTeam[slot1].item;
+    currentTeam[slot1].item = currentTeam?.[slot2]?.item;
+    currentTeam[slot2].item = temp;
+    
+    // Actualizar la vista
+    updatePreviewTeam();
 }
 
 function swapTeamSlots(slot1, slot2) {
